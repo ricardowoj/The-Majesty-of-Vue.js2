@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Calculator</title>
+</head>
+<body>
+    <div class="container mt-3">
+        <h2>Type 2 numbers and choose operation.</h2>
+        <form class="form-inline mt-3">
+            <input v-model.number="a" @keyup.enter="calculate" class="form-control mr-2">
+            <select v-model="operator" class="form-control mr-2">
+                <option>+</option>
+                <option>-</option>
+                <option>*</option>
+                <option>/</option>
+            </select>
+            <input v-model.number="b" @keyup.enter="calculate" class="form-control mr-3">
+            <button  type="submit" @click.prevent="calculate" class="btn btn-primary">
+                Calculate
+            </button>
+        </form>
+        <h2 class="mt-4">Result: {{a}} {{operator}} {{b}} = {{c}}</h2>
+        <pre class="bg-secondary text-white mt-5 p-2 shadow-sm rounded">
+            {{ $data }}
+        </pre>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '.container',
+        data: {
+            a: 1,
+            b: 2,
+            c: null,
+            operator: "+",
+        },
+        methods: {
+            calculate: function(){
+                switch (this.operator) {
+                    case "+":
+                        this.c = this.a + this.b
+                        break;
+                    case "-":
+                        this.c = this.a - this.b
+                        break;
+                    case "*":
+                        this.c = this.a * this.b
+                        break;
+                    case "/":
+                        this.c = this.a / this.b
+                        break;
+                }
+            }
+        }
+    })
+</script>
+</html>
