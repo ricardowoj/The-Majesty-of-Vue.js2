@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>The Elections</title>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-3">People of Vue</h2>
+        <ul class="list-group mt-4">
+            <li v-for="candidate in candidates" class="list-group-item">
+                <p class="d-inline">{{ candidate.name }}</p> 
+                <p class="d-inline border p-2">{{ candidate.vote}}</p>
+                <button v-on:click="candidate.vote++" type="button" class="d-inline btn btn-light">Vote</button>
+            </li>
+        </ul>
+        <div class="alert alert-success mt-3" role="alert">
+            Our mayor is {{ mayor.name }}!
+        </div>
+        <input @keyup.delete="clear" class="form-control" placeholder="press 'delete' to reset">
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: ".container",
+        data: {
+            candidates: [
+            {
+                name: "Mr. Black",
+                vote: 0
+            },
+            {
+                name: "Mr. Pink",
+                vote: 0
+            },
+            {
+                name: "Mr. White",
+                vote: 0
+            },
+            {
+                name: "Mr. Brown",
+                vote: 0
+            }   
+            ],
+        },
+        computed: {
+            mayor: function () {
+                this.candidates.sort(function(a, b) {
+                    if(a.vote > b.vote ) {
+                        return -1;
+                    }
+                    if(a.vote < b.vote) {
+                        return 1;
+                    }
+                    if(a.vote = b.vote) {
+                        return null;
+                    }
+                })
+                return this.candidates[0]
+            }
+        },
+        methods: {
+            clear: function () {
+                    this.candidates = this.candidates.map(function(candidate) {
+                        candidate.vote = 0
+                        return candidate
+                })
+            }
+        }
+    })
+</script>
+</html>
