@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <title>Assignment</title>
+</head>
+<body>
+    <div class="container">
+        <h1>People of Gaul</h1>
+        <ul class="list-group mb-3">
+            <li v-for="person in orderedPeople" :key="index" class="list-group-item">
+                {{ person.name }} {{ person.birth }}
+            </li>
+        </ul>
+
+        <h1>Older people</h1>
+        <ul class="list-group">
+            <li v-for="person in olderPeople" class="list-group-item">
+                {{ person.name }} {{ person.birth }}
+            </li>
+        </ul>
+
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: ".container",
+        data: {
+            people: [
+                {
+                    "name": "Corey",
+                    "birth": 1985
+                }, 
+                {
+                    "name": "Verne",
+                    "birth": 2010
+                }, 
+                {
+                    "name": "Raynard",
+                    "birth": 2009
+                }, 
+                {
+                    "name": "Janella",
+                    "birth": 1993
+                }, 
+                {
+                    "name": "Loria",
+                    "birth": 2002
+                }, 
+                {
+                    "name": "Davin",
+                    "birth": 1992
+                }, 
+                {
+                    "name": "Kari",
+                    "birth": 1994
+                }, 
+                {
+                    "name": "Merwyn",
+                    "birth": 1987
+                }, 
+                {
+                    "name": "Tito",
+                    "birth": 1999
+                }, 
+                {
+                    "name": "Barbee",
+                    "birth": 1998
+                }
+            ]
+        },
+        computed: {
+            orderedPeople: function() {
+                return _.orderBy(this.people, 'birth')
+            },
+
+            olderPeople: function() {
+                return _.filter(this.people, function(o) {
+                    return o.birth > 2001
+                })
+            }
+        }
+    })
+</script>
+</html>
